@@ -1,0 +1,86 @@
+module alu (
+    input clk,
+    input rst,
+    input a[8],
+    input b[8],
+    input alufn[6],
+    output out[8],
+    
+    output io_seg [8],      // 7-segment LEDs on IO Shield
+    output io_sel [4]      // Digit select on IO Shield
+  ) {
+  
+  //assign alufn to different operations
+  .a(a) {
+    .b(b) {
+      adder aluadder(.alufn(alufn[0]));
+      comparator alucomparator(.alufn(alufn[2:1]));
+      boolean aluboolean(.alufn(alufn[3:0]));
+      shifter alushifter(.alufn(alufn[1:0]));
+      multiply alumultiply(.alufn(alufn[1:0]));
+    }  
+  }
+  
+  
+  .clk(clk) {
+    .rst(rst) {
+      multi_seven_seg seg;
+    }
+  }
+
+  always {
+    
+
+    io_seg = ~seg.seg; //connect segments to the driver
+    io_sel = ~seg.sel; //connect digit select to the driver  
+
+    
+    out = 0;
+    case(alufn[5:4]) {
+      2b00:  //add sub multiply divide
+        if (alufn[1] ==1) {
+          
+          out =alumultiply.out;
+        }  
+        else out =aluadder.out;
+      2b11:  //compare
+        out =alucomparator.op;
+      2b01:  //boolean
+        out =aluboolean.out;
+      2b10:  //shift
+        out =alushifter.out;  
+        
+      default: out =0;  
+    } 
+    
+      case (alufn[5:0]) {
+      6h00: seg.values = {4h0, 4h1, 4h1, 4hF}; // ADD
+      6h01: seg.values = {4h8, 4h9, 4h5, 4hF}; // SUB
+      6h03: seg.values = {4h3, 4h3, 4h9, 4h6}; // MUL
+      6h02: seg.values = {4h1, 4hD, 4h9, 4hF}; // DIV
+
+        
+      6h18: seg.values = {4h0, 4hA, 4h7, 4hF}; // AND
+      6h1E: seg.values = {4h7, 4h0, 4hF, 4hF}; // OR
+      6h16: seg.values = {4hC, 4h7, 4h0, 4hF}; // XOR
+
+      6h17: seg.values = {4hA, 4h0, 4hA, 4h1}; // NAND
+      6h11: seg.values = {4hA, 4h7, 4h0, 4hF}; // NOR
+      6h19: seg.values = {4hC, 4hA, 4h7, 4h0}; // XNOR
+      6h1A: seg.values = {4h0, 4hF, 4hF, 4hF}; // A
+      6h1C: seg.values = {4h5, 4hF, 4hF, 4hF}; // B
+        
+      6h20: seg.values = {4h8, 4hB, 4h6, 4hF}; // SHL
+      6h21: seg.values = {4h8, 4hB, 4h0, 4hF}; // SHR
+      6h23: seg.values = {4h8, 4h0, 4h0, 4hF}; // SRA
+        
+      6h33: seg.values = {4h2, 4h3, 4h3, 4h4}; // CMP
+      6h35: seg.values = {4h2, 4h3, 4h3, 4h4}; // CMP
+      6h37: seg.values = {4h2, 4h3, 4h3, 4h4}; // CMP
+      
+      default: seg.values = {4hF, 4hF, 4hF, 4hF};
+
+      }
+     
+  }
+}

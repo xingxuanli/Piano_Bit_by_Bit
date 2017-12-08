@@ -1,0 +1,55 @@
+module comparator ( // computes CMPEQ, CMPLT, CMPLE of A to B, gives op  
+    input a[8], // zero from adder 
+    input b[8], // overflow from adder 
+    input alufn[2], //required for alufn [2:1]
+    output op[8] //output 
+  ) {
+  
+  sig result; //store result of each case of the comparator
+  sig z;
+  sig v;
+  sig n;
+  sig test;
+  
+  adder add(.alufn(alufn[0]),.a(a[7:0]),.b(b[7:0]));
+
+  always {
+    op = 8b0; //fill all 8 digits w 0, we are only concerned with the least sig bit 
+    z = add.z;
+    v = add.v;
+    n = add.n;
+    /*
+    ALUFN[2:1]
+       case binary 01: CMPEQ ie compare equals , A=B
+       case binary 10: CMPLT ie compare less than, A<B 
+       case binary 11: CMPLE ie compare less equals, A<=B
+    */
+    
+    if (a < b){
+     test = 1;
+      }
+    else {
+     test = 0;
+      }
+    
+    case(alufn[1:0]){
+      b01: 
+        result = z; // equation lsb = z 
+      b10: 
+        //result = n ^ v; // equation lsb = n xor v 
+        result = test;
+      b11: 
+        result = z | (n^v); // equation lsb = z or (n xor v) 
+        
+      default: 
+        result = 0; //so that we have no unassigned cases     
+      }
+    
+    op[0] = result; //changing the least sig bit of output 
+
+
+    
+    
+  }
+}
+

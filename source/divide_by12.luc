@@ -1,0 +1,55 @@
+module divide_by12 (
+  input clk,
+  input rst,
+	input numerator[6],  // value to be divided by 12
+	output quotient[3], 
+	output remainder[4]
+  ) {
+
+  dff remainder3to2[2](.clk(clk), .rst(rst));
+  
+  always {
+    case(numerator[5:2]){
+    	 0: quotient=0;
+    	 1: quotient=0;
+    	 2: quotient=0;
+    	 3: quotient=1;
+    	 4: quotient=1;
+    	 5: quotient=1;
+    	 6: quotient=2;
+    	 7: quotient=2;
+    	 8: quotient=2;
+    	 9: quotient=3;
+    	10: quotient=3;
+    	11: quotient=3;
+    	12: quotient=4;
+    	13: quotient=4;
+    	14: quotient=4;
+    	15: quotient=5;
+      default: quotient=0;
+        }
+    
+    case(numerator[5:2]){
+    	 0: remainder3to2.d=0;
+    	 1: remainder3to2.d=1;
+    	 2: remainder3to2.d=2;
+    	 3: remainder3to2.d=0;
+    	 4: remainder3to2.d=1;
+    	 5: remainder3to2.d=2;
+    	 6: remainder3to2.d=0;
+    	 7: remainder3to2.d=1;
+    	 8: remainder3to2.d=2;
+    	 9: remainder3to2.d=0;
+    	10: remainder3to2.d=1;
+    	11: remainder3to2.d=2;
+    	12: remainder3to2.d=0;
+    	13: remainder3to2.d=1;
+    	14: remainder3to2.d=2;
+    	15: remainder3to2.d=0;
+       default: quotient=0;
+    	}
+      
+     remainder[1:0] = numerator[1:0];  // the first 2 bits are copied through
+     remainder[3:2] = remainder3to2.q;  // and the last 2 bits come from the case statement
+    }
+}

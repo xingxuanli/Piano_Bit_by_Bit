@@ -1,0 +1,110 @@
+module selsong (
+    input clk,  // clock
+    input rst,  // reset
+    input btn_left,
+    input btn_right,
+    input btn_up,
+    input btn_down,
+    input btn_ok,
+    output yellowled[3],
+    output greenled[2]
+  ) {
+  
+  .clk(clk){
+    edge_detector edge_detector1(#RISE(1), #FALL(0));
+    button_conditioner button_cond1;
+    
+    edge_detector edge_detector2(#RISE(1), #FALL(0));
+    button_conditioner button_cond2;
+    
+    edge_detector edge_detector3(#RISE(1), #FALL(0));
+    button_conditioner button_cond3;
+    
+    edge_detector edge_detector4(#RISE(1), #FALL(0));
+    button_conditioner button_cond4;
+    
+    edge_detector edge_detector5(#RISE(1), #FALL(0));
+    button_conditioner button_cond5;
+    
+    .rst(rst) {
+      fsm yellow_state(#INIT(SONG2)) = {SONG1, SONG2, SONG3};
+      fsm green_state(#INIT(SPEED1)) = {SPEED1, SPEED2};
+      }
+    
+    }
+  
+  //dff changey[3](.clk(clk), .rst(rst)); 
+  //dff changeg[2](.clk(clk), .rst(rst));
+
+  always {
+  
+    button_cond1.in = btn_left;
+    edge_detector1.in = button_cond1.out;
+    
+    button_cond2.in = btn_right;
+    edge_detector2.in = button_cond2.out;
+    
+    button_cond3.in = btn_up;
+    edge_detector3.in = button_cond3.out;
+    
+    button_cond4.in = btn_down;
+    edge_detector4.in = button_cond4.out;
+    
+    button_cond5.in = btn_ok;
+    edge_detector5.in = button_cond5.out;
+    
+    case (yellow_state.q) {
+      yellow_state.SONG1:
+         yellowled[2:0] = b100;
+         if (edge_detector2.out) {
+           yellow_state.d = yellow_state.SONG2;
+          }
+         if (edge_detector3.out) {
+           yellow_state.d = yellow_state.SONG3;
+          }
+      yellow_state.SONG2:
+         yellowled[2:0] = b010;
+         if (edge_detector1.out) {
+           yellow_state.d = yellow_state.SONG1;
+          }
+         if (edge_detector3.out) {
+           yellow_state.d = yellow_state.SONG3;
+          }
+      yellow_state.SONG3:
+         yellowled[2:0] = b001;
+         if (edge_detector1.out) {
+           yellow_state.d = yellow_state.SONG1;
+          }
+         if (edge_detector2.out) {
+           yellow_state.d = yellow_state.SONG2;
+          }
+      default:
+          yellowled = b001;
+      }
+    
+      case (green_state.q) {
+      green_state.SPEED1:
+         greenled = b01;
+         if (edge_detector4.out) {
+           green_state.d = green_state.SPEED2;
+          }
+      green_state.SPEED2:
+         greenled = b10;
+         if (edge_detector5.out) {
+           green_state.d = green_state.SPEED1;
+          }
+        
+      default:
+        greenled = b01;
+
+    //if(edge_detector1.out) changey.d =changey.q +1;
+    //if(edge_detector2.out) changey.d =changey.q -1;
+    //if(edge_detector3.out) changeg.d =changeg.q +1;
+    //if(edge_detector4.out) changeg.d =changeg.q -1;
+    
+    //yellowled[2:0] =changey.q[2:0];
+    //greenled[1:0] =changeg.q[1:0];
+        
+  }
+}
+}

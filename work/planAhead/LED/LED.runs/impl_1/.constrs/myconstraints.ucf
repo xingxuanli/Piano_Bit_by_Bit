@@ -1,0 +1,170 @@
+NET "r[4]" LOC = P51;
+NET "r[4]" IOSTANDARD = LVTTL;
+NET "r[6]" LOC = P41;
+NET "r[6]" IOSTANDARD = LVTTL;
+NET "c[1]" LOC = P35;
+NET "c[1]" IOSTANDARD = LVTTL;
+NET "c[2]" LOC = P33;
+NET "c[2]" IOSTANDARD = LVTTL;
+NET "r[7]" LOC = P30;
+NET "r[7]" IOSTANDARD = LVTTL;
+NET "c[4]" LOC = P27;
+NET "c[4]" IOSTANDARD = LVTTL;
+NET "r[5]" LOC = P24;
+NET "r[5]" IOSTANDARD = LVTTL;
+NET "r[2]" LOC = P22;
+NET "r[2]" IOSTANDARD = LVTTL;
+
+NET "c[7]" LOC = P50;
+NET "c[7]" IOSTANDARD = LVTTL;
+NET "c[6]" LOC = P40;
+NET "c[6]" IOSTANDARD = LVTTL;
+NET "r[1]" LOC = P34;
+NET "r[1]" IOSTANDARD = LVTTL;
+NET "c[0]" LOC = P32;
+NET "c[0]" IOSTANDARD = LVTTL;
+NET "r[3]" LOC = P29;
+NET "r[3]" IOSTANDARD = LVTTL;
+NET "c[5]" LOC = P26;
+NET "c[5]" IOSTANDARD = LVTTL;
+NET "c[3]" LOC = P23;
+NET "c[3]" IOSTANDARD = LVTTL;
+NET "r[0]" LOC = P21;
+NET "r[0]" IOSTANDARD = LVTTL;
+
+
+
+
+NET "r2[4]" LOC = P15;
+NET "r2[4]" IOSTANDARD = LVTTL;
+NET "r2[6]" LOC = P12;
+NET "r2[6]" IOSTANDARD = LVTTL;
+NET "c2[1]" LOC = P10;
+NET "c2[1]" IOSTANDARD = LVTTL;
+NET "c2[2]" LOC = P8;
+NET "c2[2]" IOSTANDARD = LVTTL;
+NET "r2[7]" LOC = P6;
+NET "r2[7]" IOSTANDARD = LVTTL;
+NET "c2[4]" LOC = P2;
+NET "c2[4]" IOSTANDARD = LVTTL;
+NET "r2[5]" LOC = P144;
+NET "r2[5]" IOSTANDARD = LVTTL;
+NET "r2[2]" LOC = P142;
+NET "r2[2]" IOSTANDARD = LVTTL;
+
+NET "c2[7]" LOC = P14;
+NET "c2[7]" IOSTANDARD = LVTTL;
+NET "c2[6]" LOC = P11;
+NET "c2[6]" IOSTANDARD = LVTTL;
+NET "r2[1]" LOC = P9;
+NET "r2[1]" IOSTANDARD = LVTTL;
+NET "c2[0]" LOC = P7;
+NET "c2[0]" IOSTANDARD = LVTTL;
+NET "r2[3]" LOC = P5;
+NET "r2[3]" IOSTANDARD = LVTTL;
+NET "c2[5]" LOC = P1;
+NET "c2[5]" IOSTANDARD = LVTTL;
+NET "c2[3]" LOC = P143;
+NET "c2[3]" IOSTANDARD = LVTTL;
+NET "r2[0]" LOC = P131;
+NET "r2[0]" IOSTANDARD = LVTTL;
+
+
+
+
+
+
+NET "keys[0]" LOC = P58;
+NET "keys[0]" IOSTANDARD = LVTTL;
+NET "keys[0]" PULLUP;
+NET "keys[1]" LOC = P67;
+NET "keys[1]" IOSTANDARD = LVTTL;
+NET "keys[1]" PULLUP;
+NET "keys[2]" LOC = P75;
+NET "keys[2]" IOSTANDARD = LVTTL;
+NET "keys[2]" PULLUP;
+NET "keys[3]" LOC = P79;
+NET "keys[3]" IOSTANDARD = LVTTL;
+NET "keys[3]" PULLUP;
+NET "keys[4]" LOC = P81;
+NET "keys[4]" IOSTANDARD = LVTTL;
+NET "keys[4]" PULLUP;
+NET "keys[5]" LOC = P83;
+NET "keys[5]" IOSTANDARD = LVTTL;
+NET "keys[5]" PULLUP;
+NET "keys[6]" LOC = P85;
+NET "keys[6]" IOSTANDARD = LVTTL;
+NET "keys[6]" PULLUP;
+
+
+
+NET "btn_left" LOC = P112;
+NET "btn_left" IOSTANDARD = LVTTL;
+NET "btn_left" PULLUP;
+NET "btn_ok" LOC = P115;
+NET "btn_ok" IOSTANDARD = LVTTL;
+NET "btn_ok" PULLUP;
+NET "btn_down" LOC = P117;
+NET "btn_down" IOSTANDARD = LVTTL;
+NET "btn_down" PULLUP;
+NET "btn_up" LOC = P119;
+NET "btn_up" IOSTANDARD = LVTTL;
+NET "btn_up" PULLUP;
+NET "btn_right" LOC = P121;
+NET "btn_right" IOSTANDARD = LVTTL;
+NET "btn_right" PULLUP;
+
+
+
+
+NET "yellow[0]" LOC = P88;
+NET "yellow[0]" IOSTANDARD = LVTTL;
+NET "yellow[1]" LOC = P93;
+NET "yellow[1]" IOSTANDARD = LVTTL;
+NET "yellow[2]" LOC = P95;
+NET "yellow[2]" IOSTANDARD = LVTTL;
+
+NET "green[0]" LOC = P98;
+NET "green[0]" IOSTANDARD = LVTTL;
+NET "green[1]" LOC = P100;
+NET "green[1]" IOSTANDARD = LVTTL;
+
+NET "speaker" LOC = P116;
+NET "speaker" IOSTANDARD = LVTTL;
+
+NET "sevenseg1[0]" LOC = P57;
+NET "sevenseg1[0]" IOSTANDARD = LVTTL;
+NET "sevenseg1[1]" LOC = P66;
+NET "sevenseg1[1]" IOSTANDARD = LVTTL;
+NET "sevenseg1[2]" LOC = P74;
+NET "sevenseg1[2]" IOSTANDARD = LVTTL;
+NET "sevenseg1[3]" LOC = P78;
+NET "sevenseg1[3]" IOSTANDARD = LVTTL;
+NET "sevenseg1[4]" LOC = P80;
+NET "sevenseg1[4]" IOSTANDARD = LVTTL;
+NET "sevenseg1[5]" LOC = P82;
+NET "sevenseg1[5]" IOSTANDARD = LVTTL;
+NET "sevenseg1[6]" LOC = P84;
+NET "sevenseg1[6]" IOSTANDARD = LVTTL;
+NET "sevenseg1[7]" LOC = P87;
+NET "sevenseg1[7]" IOSTANDARD = LVTTL;
+
+NET "sevenseg2[0]" LOC = P92;
+NET "sevenseg2[0]" IOSTANDARD = LVTTL;
+NET "sevenseg2[1]" LOC = P94;
+NET "sevenseg2[1]" IOSTANDARD = LVTTL;
+NET "sevenseg2[2]" LOC = P134;
+NET "sevenseg2[2]" IOSTANDARD = LVTTL;
+NET "sevenseg2[3]" LOC = P99;
+NET "sevenseg2[3]" IOSTANDARD = LVTTL;
+NET "sevenseg2[4]" LOC = P101;
+NET "sevenseg2[4]" IOSTANDARD = LVTTL;
+NET "sevenseg2[5]" LOC = P104;
+NET "sevenseg2[5]" IOSTANDARD = LVTTL;
+NET "sevenseg2[6]" LOC = P138;
+NET "sevenseg2[6]" IOSTANDARD = LVTTL;
+NET "sevenseg2[7]" LOC = P114;
+NET "sevenseg2[7]" IOSTANDARD = LVTTL;
+
+
+

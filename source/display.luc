@@ -1,0 +1,27 @@
+module display (
+    input clk,  // clock
+    input rst,  // reset
+    input cr[8][8],
+    output c[8],
+    output r[8]
+  ) {
+  
+  const FLIP =15;
+  counter counter_r(.clk(clk), .rst(rst), #SIZE(3), #DIV(FLIP), #TOP(7));
+  sig whichrow[3];
+  var i;
+
+  always {
+  
+    r =b00000000;
+    c =b11111111;
+    
+    whichrow =counter_r.value;
+    r[whichrow] =1;
+    for(i =0; i <=7; i ++) {
+    
+      c[i] =~cr[i][7 -whichrow];
+    
+    }
+  }
+}

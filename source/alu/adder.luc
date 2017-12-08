@@ -1,0 +1,27 @@
+module adder ( //computes ADD and SUB of inputs a and b to give output op 
+    input a[8],  // input 1 =a
+    input b[8],  // input 2 = b
+    input alufn[1], //takes in alufn, if [0] = 0: ADD, =1: SUB 
+    output out[8], // output 
+    output z, // zero: output 1 if all digits of op are 0 
+    output v, // overflow: output 1 if op width is larger than 8 bits
+    output n //negative: output 1 if most sig bit is 1
+  ) {
+  
+  sig sum[8]; //to hold value of sum from bitwise addition
+  sig xb[8]; //to hold value of XOR b
+  
+
+  always {
+    out = a; //if b = 0, output defaults to a 
+    xb = b ^ 8x{alufn}; //XOR b: to reverse all digits in b 
+    sum = a + xb + alufn; //bitwise addition 
+    
+    
+    z = ~ (|sum); //NOR: checks if all digits are 0  
+    v = (a[7] & xb[7] & ~sum[7]) | (~a[7] & ~xb[7] & sum[7]); //follows v equation
+    n = sum[7]; //follows most significant bit 
+    
+    out = sum;
+  }
+}

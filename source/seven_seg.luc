@@ -1,0 +1,28 @@
+module seven_seg (
+    input char[4],
+    output segs[8]
+  ) {
+ 
+  always {
+    case (char) {
+      0: segs = $reverse(8b11011011);
+      1: segs = $reverse(8b00010001);
+      2: segs = $reverse(8b01111010);
+      3: segs = $reverse(8b01110011);
+      4: segs = $reverse(8b10110001);
+      5: segs = $reverse(8b11100011);
+      6: segs = $reverse(8b11101011);
+      7: segs = $reverse(8b01010001);
+      8: segs = $reverse(8b11111011);
+      9: segs = $reverse(8b11011011);
+      10: segs = $reverse(8b11111001);
+      11: segs = $reverse(8b10101011);
+      12: segs = $reverse(8b11001010);
+      13: segs = $reverse(8b00111011);
+      14: segs = $reverse(8b11101010);
+      15: segs = $reverse(8b11101000);
+      
+      default: segs = 8b00000000;
+    }
+  }
+}

@@ -1,0 +1,8 @@
+INTSTYLE=pa
+INFILE=/home/dudu/Desktop/LED_bkup/work/planAhead/LED/LED.runs/impl_1/mojo_top_0_routed.ncd
+OUTFILE=/home/dudu/Desktop/LED_bkup/work/planAhead/LED/LED.runs/impl_1/mojo_top_0.bit
+FAMILY=Spartan6
+PART=xc6slx9-2tqg144
+WORKINGDIR=/home/dudu/Desktop/LED_bkup/work/planAhead/LED/LED.runs/impl_1
+LICENSE=WebPack
+USER_INFO=211398928_0_0_150

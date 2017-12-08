@@ -1,0 +1,39 @@
+module boolean (
+    input a[8],  // clock
+    input b[8],  // reset
+    input alufn[4],
+    output out[8]
+  ) {
+
+  always {
+    case(alufn){
+      
+      //NOR case
+      4h01: out = ~(a|b);
+    
+      //XOR case
+      4h06: out = a^b;
+    
+      //NAND case
+      4h07: out = ~(a&b);
+      
+      //AND case 
+      4h08: out = a & b;
+      
+      //XNOR case 
+      4h09: out = ~(a^b);
+      
+      //buffer A case
+      4h0A: out = a;
+      
+      //buffer B case 
+      4h0C: out = b;
+      
+      //OR case
+      4h0E: out = a|b;
+    
+      //default case
+      default: out = 8x{0};
+    }
+  }
+}

@@ -1,0 +1,375 @@
+Release 14.7 Map P.20131013 (lin64)
+Xilinx Mapping Report File for Design 'mojo_top_0'
+
+Design Information
+------------------
+Command Line   : map -intstyle pa -w -pr b -mt on mojo_top_0.ngd 
+Target Device  : xc6slx9
+Target Package : tqg144
+Target Speed   : -2
+Mapper Version : spartan6 -- $Revision: 1.55 $
+Mapped Date    : Fri Dec  8 04:37:27 2017
+
+Design Summary
+--------------
+Number of errors:      0
+Number of warnings:    6
+Slice Logic Utilization:
+  Number of Slice Registers:                   457 out of  11,440    3%
+    Number used as Flip Flops:                 437
+    Number used as Latches:                     20
+    Number used as Latch-thrus:                  0
+    Number used as AND/OR logics:                0
+  Number of Slice LUTs:                      1,500 out of   5,720   26%
+    Number used as logic:                    1,476 out of   5,720   25%
+      Number using O6 output only:           1,055
+      Number using O5 output only:             297
+      Number using O5 and O6:                  124
+      Number used as ROM:                        0
+    Number used as Memory:                       8 out of   1,440    1%
+      Number used as Dual Port RAM:              0
+      Number used as Single Port RAM:            0
+      Number used as Shift Register:             8
+        Number using O6 output only:             4
+        Number using O5 output only:             0
+        Number using O5 and O6:                  4
+    Number used exclusively as route-thrus:     16
+      Number with same-slice register load:      0
+      Number with same-slice carry load:        16
+      Number with other load:                    0
+
+Slice Logic Distribution:
+  Number of occupied Slices:                   545 out of   1,430   38%
+  Number of MUXCYs used:                       388 out of   2,860   13%
+  Number of LUT Flip Flop pairs used:        1,526
+    Number with an unused Flip Flop:         1,087 out of   1,526   71%
+    Number with an unused LUT:                  26 out of   1,526    1%
+    Number of fully used LUT-FF pairs:         413 out of   1,526   27%
+    Number of unique control sets:              23
+    Number of slice register sites lost
+      to control set restrictions:              83 out of  11,440    1%
+
+  A LUT Flip Flop pair for this architecture represents one LUT paired with
+  one Flip Flop within a slice.  A control set is a unique combination of
+  clock, reset, set, and enable signals for a registered element.
+  The Slice Logic Distribution report is not meaningful if the design is
+  over-mapped for a non-slice resource or if Placement fails.
+
+IO Utilization:
+  Number of bonded IOBs:                        76 out of     102   74%
+    Number of LOCed IOBs:                       74 out of      76   97%
+
+Specific Feature Utilization:
+  Number of RAMB16BWERs:                         0 out of      32    0%
+  Number of RAMB8BWERs:                          0 out of      64    0%
+  Number of BUFIO2/BUFIO2_2CLKs:                 0 out of      32    0%
+  Number of BUFIO2FB/BUFIO2FB_2CLKs:             0 out of      32    0%
+  Number of BUFG/BUFGMUXs:                       2 out of      16   12%
+    Number used as BUFGs:                        2
+    Number used as BUFGMUX:                      0
+  Number of DCM/DCM_CLKGENs:                     0 out of       4    0%
+  Number of ILOGIC2/ISERDES2s:                   0 out of     200    0%
+  Number of IODELAY2/IODRP2/IODRP2_MCBs:         0 out of     200    0%
+  Number of OLOGIC2/OSERDES2s:                   0 out of     200    0%
+  Number of BSCANs:                              0 out of       4    0%
+  Number of BUFHs:                               0 out of     128    0%
+  Number of BUFPLLs:                             0 out of       8    0%
+  Number of BUFPLL_MCBs:                         0 out of       4    0%
+  Number of DSP48A1s:                            1 out of      16    6%
+  Number of ICAPs:                               0 out of       1    0%
+  Number of MCBs:                                0 out of       2    0%
+  Number of PCILOGICSEs:                         0 out of       2    0%
+  Number of PLL_ADVs:                            0 out of       2    0%
+  Number of PMVs:                                0 out of       1    0%
+  Number of STARTUPs:                            0 out of       1    0%
+  Number of SUSPEND_SYNCs:                       0 out of       1    0%
+
+Average Fanout of Non-Clock Nets:                4.32
+
+Peak Memory Usage:  763 MB
+Total REAL time to MAP completion:  18 secs 
+Total CPU time to MAP completion (all processors):   20 secs 
+
+Table of Contents
+-----------------
+Section 1 - Errors
+Section 2 - Warnings
+Section 3 - Informational
+Section 4 - Removed Logic Summary
+Section 5 - Removed Logic
+Section 6 - IOB Properties
+Section 7 - RPMs
+Section 8 - Guide Report
+Section 9 - Area Group and Partition Summary
+Section 10 - Timing Report
+Section 11 - Configuration String Information
+Section 12 - Control Set Information
+Section 13 - Utilization by Hierarchy
+
+Section 1 - Errors
+------------------
+
+Section 2 - Warnings
+--------------------
+WARNING:MapLib:701 - Signal spi_miso connected to top level port spi_miso has
+   been removed.
+WARNING:MapLib:701 - Signal spi_channel[0] connected to top level port
+   spi_channel(0) has been removed.
+WARNING:MapLib:701 - Signal spi_channel[1] connected to top level port
+   spi_channel(1) has been removed.
+WARNING:MapLib:701 - Signal spi_channel[2] connected to top level port
+   spi_channel(2) has been removed.
+WARNING:MapLib:701 - Signal spi_channel[3] connected to top level port
+   spi_channel(3) has been removed.
+WARNING:MapLib:701 - Signal avr_rx connected to top level port avr_rx has been
+   removed.
+
+Section 3 - Informational
+-------------------------
+INFO:Map:284 - Map is running with the multi-threading option on. Map currently
+   supports the use of up to 2 processors. Based on the the user options and
+   machine load, Map will use 2 processors during this run.
+INFO:MapLib:562 - No environment variables are currently set.
+INFO:LIT:244 - All of the single ended outputs in this design are using slew
+   rate limited output drivers. The delay on speed critical single ended outputs
+   can be dramatically reduced by designating them as fast outputs.
+INFO:Pack:1716 - Initializing temperature to 85.000 Celsius. (default - Range:
+   0.000 to 85.000 Celsius)
+INFO:Pack:1720 - Initializing voltage to 1.140 Volts. (default - Range: 1.140 to
+   1.260 Volts)
+INFO:Map:215 - The Interim Design Summary has been generated in the MAP Report
+   (.mrp).
+INFO:Place:834 - Only a subset of IOs are locked. Out of 76 IOs, 74 are locked
+   and 2 are not locked. If you would like to print the names of these IOs,
+   please set the environment variable XIL_PAR_DESIGN_CHECK_VERBOSE to 1. 
+INFO:Pack:1650 - Map created a placed design.
+
+Section 4 - Removed Logic Summary
+---------------------------------
+  12 block(s) removed
+  58 block(s) optimized away
+   6 signal(s) removed
+
+Section 5 - Removed Logic
+-------------------------
+
+The trimmed logic reported below is either:
+   1. part of a cycle
+   2. part of disabled logic
+   3. a side-effect of other trimmed logic
+
+The signal "spi_miso" is unused and has been removed.
+ Unused block "spi_miso_OBUFT" (TRI) removed.
+The signal "spi_channel[0]" is unused and has been removed.
+ Unused block "spi_channel_0_OBUFT" (TRI) removed.
+The signal "spi_channel[1]" is unused and has been removed.
+ Unused block "spi_channel_1_OBUFT" (TRI) removed.
+The signal "spi_channel[2]" is unused and has been removed.
+ Unused block "spi_channel_2_OBUFT" (TRI) removed.
+The signal "spi_channel[3]" is unused and has been removed.
+ Unused block "spi_channel_3_OBUFT" (TRI) removed.
+The signal "avr_rx" is unused and has been removed.
+ Unused block "avr_rx_OBUFT" (TRI) removed.
+Unused block "avr_rx" (PAD) removed.
+Unused block "spi_channel[0]" (PAD) removed.
+Unused block "spi_channel[1]" (PAD) removed.
+Unused block "spi_channel[2]" (PAD) removed.
+Unused block "spi_channel[3]" (PAD) removed.
+Unused block "spi_miso" (PAD) removed.
+
+Optimized Block(s):
+TYPE 		BLOCK
+GND 		XST_GND
+VCC 		XST_VCC
+VCC 		cond0/C
+GND 		cond0/D
+GND 		cond0/sync/XST_GND
+VCC 		cond0/sync/XST_VCC
+VCC 		cond1/C
+GND 		cond1/D
+GND 		cond1/sync/XST_GND
+VCC 		cond1/sync/XST_VCC
+VCC 		cond2/C
+GND 		cond2/D
+GND 		cond2/sync/XST_GND
+VCC 		cond2/sync/XST_VCC
+VCC 		cond3/C
+GND 		cond3/D
+GND 		cond3/sync/XST_GND
+VCC 		cond3/sync/XST_VCC
+VCC 		cond4/C
+GND 		cond4/D
+GND 		cond4/sync/XST_GND
+VCC 		cond4/sync/XST_VCC
+VCC 		cond5/C
+GND 		cond5/D
+GND 		cond5/sync/XST_GND
+VCC 		cond5/sync/XST_VCC
+VCC 		cond6/C
+GND 		cond6/D
+GND 		cond6/sync/XST_GND
+VCC 		cond6/sync/XST_VCC
+GND 		cond_center/XST_GND
+VCC 		cond_center/XST_VCC
+GND 		cond_center/sync/XST_GND
+VCC 		cond_center/sync/XST_VCC
+GND 		display2/counter_r/XST_GND
+VCC 		display2/counter_r/XST_VCC
+GND 		myalu/alumultiply/XST_GND
+VCC 		myalu/alumultiply/XST_VCC
+VCC 		myalu/alumultiply/a[7]_b[7]_div_4/XST_VCC
+GND 		mymusic/XST_GND
+VCC 		mymusic/XST_VCC
+GND 		reset_cond/XST_GND
+GND 		songandspeed/button_cond1/XST_GND
+VCC 		songandspeed/button_cond1/XST_VCC
+GND 		songandspeed/button_cond1/sync/XST_GND
+VCC 		songandspeed/button_cond1/sync/XST_VCC
+GND 		songandspeed/button_cond2/XST_GND
+VCC 		songandspeed/button_cond2/XST_VCC
+GND 		songandspeed/button_cond2/sync/XST_GND
+VCC 		songandspeed/button_cond2/sync/XST_VCC
+GND 		songandspeed/button_cond3/XST_GND
+VCC 		songandspeed/button_cond3/XST_VCC
+GND 		songandspeed/button_cond3/sync/XST_GND
+VCC 		songandspeed/button_cond3/sync/XST_VCC
+GND 		songandspeed/button_cond4/XST_GND
+VCC 		songandspeed/button_cond4/XST_VCC
+GND 		songandspeed/button_cond4/sync/XST_GND
+VCC 		songandspeed/button_cond4/sync/XST_VCC
+
+To enable printing of redundant blocks removed and signals merged, set the
+detailed map report option and rerun map.
+
+Section 6 - IOB Properties
+--------------------------
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| IOB Name                           | Type             | Direction | IO Standard          | Diff  | Drive    | Slew | Reg (s)      | Resistor | IOB      |
+|                                    |                  |           |                      | Term  | Strength | Rate |              |          | Delay    |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+| btn_down                           | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| btn_left                           | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| btn_ok                             | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| btn_right                          | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| btn_up                             | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| c2[0]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c2[1]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c2[2]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c2[3]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c2[4]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c2[5]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c2[6]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c2[7]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c[0]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c[1]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c[2]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c[3]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c[4]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c[5]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c[6]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| c[7]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| clk                                | IOB              | INPUT     | LVTTL                |       |          |      |              |          |          |
+| green[0]                           | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| green[1]                           | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| keys[0]                            | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| keys[1]                            | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| keys[2]                            | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| keys[3]                            | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| keys[4]                            | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| keys[5]                            | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| keys[6]                            | IOB              | INPUT     | LVTTL                |       |          |      |              | PULLUP   |          |
+| led[0]                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| led[1]                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| led[2]                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| led[3]                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| led[4]                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| led[5]                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| led[6]                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| led[7]                             | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r2[0]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r2[1]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r2[2]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r2[3]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r2[4]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r2[5]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r2[6]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r2[7]                              | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r[0]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r[1]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r[2]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r[3]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r[4]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r[5]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r[6]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| r[7]                               | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| rst_n                              | IOB              | INPUT     | LVTTL                |       |          |      |              |          |          |
+| sevenseg1[0]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg1[1]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg1[2]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg1[3]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg1[4]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg1[5]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg1[6]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg1[7]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg2[0]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg2[1]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg2[2]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg2[3]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg2[4]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg2[5]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg2[6]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| sevenseg2[7]                       | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| speaker                            | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| yellow[0]                          | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| yellow[1]                          | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
+| yellow[2]                          | IOB              | OUTPUT    | LVTTL                |       | 12       | SLOW |              |          |          |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Section 7 - RPMs
+----------------
+
+Section 8 - Guide Report
+------------------------
+Guide not run on this design.
+
+Section 9 - Area Group and Partition Summary
+--------------------------------------------
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+Area Group Information
+----------------------
+
+  No area groups were found in this design.
+
+----------------------
+
+Section 10 - Timing Report
+--------------------------
+A logic-level (pre-route) timing report can be generated by using Xilinx static
+timing analysis tools, Timing Analyzer (GUI) or TRCE (command line), with the
+mapped NCD and PCF files. Please note that this timing report will be generated
+using estimated delay information. For accurate numbers, please generate a
+timing report with the post Place and Route NCD file.
+
+For more information about the Timing Analyzer, consult the Xilinx Timing
+Analyzer Reference Manual; for more information about TRCE, consult the Xilinx
+Command Line Tools User Guide "TRACE" chapter.
+
+Section 11 - Configuration String Details
+-----------------------------------------
+Use the "-detail" map option to print out Configuration Strings
+
+Section 12 - Control Set Information
+------------------------------------
+Use the "-detail" map option to print out Control Set Information.
+
+Section 13 - Utilization by Hierarchy
+-------------------------------------
+Use the "-detail" map option to print out the Utilization by Hierarchy section.

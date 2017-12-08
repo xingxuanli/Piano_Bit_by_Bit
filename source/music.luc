@@ -1,0 +1,67 @@
+module music (
+    input clk,  // clock
+    input rst,  // reset
+    input music_num[2],  // 1 2 3 are songs 0 means nothings come out
+    input mycounter[25],
+    output speaker
+  ) {
+  
+    dff tone[31](.clk(clk), .rst(rst));
+  
+    always {
+    tone.d = tone.q+1;
+    }
+
+    sig fullnote[8];
+
+    //music_ROM get_fullnote(.clk(clk), .address(tone.q[29:22]), .music_num(music_num[1:0]));
+    music_ROM get_fullnote(.clk(clk), .address(mycounter[24:0]), .music_num(music_num[1:0]));
+
+    sig octave[3];
+    sig note[4];
+    dff clkdivider[9](.clk(clk), .rst(rst));  
+    dff speaker_dff(.clk(clk), .rst(rst)); 
+  
+    divide_by12 get_octave_and_note(.clk(clk), .rst(rst), .numerator(get_fullnote.note[5:0]));
+    always {
+    octave[2:0] = get_octave_and_note.quotient[2:0];
+    note[3:0] = get_octave_and_note.remainder[3:0];
+    fullnote[7:0] = get_fullnote.note[7:0];
+    speaker = speaker_dff.q;
+    }
+
+    always {
+    case(note) {
+    	 0: clkdivider.d = 511;//A
+    	 1: clkdivider.d = 482;// A#/Bb
+    	 2: clkdivider.d = 455;//B
+    	 3: clkdivider.d = 430;//C
+    	 4: clkdivider.d = 405;// C#/Db
+    	 5: clkdivider.d = 383;//D
+    	 6: clkdivider.d = 361;// D#/Eb
+    	 7: clkdivider.d = 341;//E
+    	 8: clkdivider.d = 322;//F
+    	 9: clkdivider.d = 303;// F#/Gb
+    	10: clkdivider.d = 286;//G
+    	11: clkdivider.d = 270;// G#/Ab
+    	default: clkdivider.d = 0;
+    	}
+    }
+  dff counter_note[9](.clk(clk), .rst(rst));
+  dff counter_octave[8](.clk(clk), .rst(rst));
+  always {
+      counter_note.d = (counter_note.q == 0) ? clkdivider.q : counter_note.q - 1;
+      }
+  
+  always { 
+      if(counter_note.q == 0) {
+      counter_octave.d = (counter_octave.q == 0) ? 255 >> octave : counter_octave.q - 1;
+      }
+    }
+  always {
+      if(counter_note.q == 0 && counter_octave.q == 0 && fullnote !=0 && tone.q[21:18]!=0) {
+  
+    
+      speaker_dff.d = ~speaker_dff.q;         }
+    }
+  }

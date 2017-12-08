@@ -1,0 +1,47 @@
+module alu (
+    input clk,
+    input rst,
+    input a[8],
+    input b[8],
+    input alufn[6],
+    output out[8]
+  ) {
+  
+  //assign alufn to different operations
+  .a(a) {
+    .b(b) {
+      adder aluadder(.alufn(alufn[0]));
+      comparator alucomparator(.alufn(alufn[2:1]));
+      boolean aluboolean(.alufn(alufn[3:0]));
+      shifter alushifter(.alufn(alufn[1:0]));
+      multiply alumultiply(.alufn(alufn[1:0]));
+    }  
+  }
+  
+
+  always {
+    
+
+    
+    out = 0;
+    case(alufn[5:4]) {
+      2b00:  //add sub multiply divide
+        if (alufn[1] ==1) {
+          
+          out =alumultiply.out;
+        }  
+        else out =aluadder.out;
+      2b11:  //compare
+        out =alucomparator.op;
+      2b01:  //boolean
+        out =aluboolean.out;
+      2b10:  //shift
+        out =alushifter.out;  
+        
+      default: out =0;  
+    } 
+    
+
+      }
+     
+  }
