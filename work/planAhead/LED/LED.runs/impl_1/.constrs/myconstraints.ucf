@@ -110,7 +110,7 @@ NET "btn_down" PULLUP;
 NET "btn_up" LOC = P119;
 NET "btn_up" IOSTANDARD = LVTTL;
 NET "btn_up" PULLUP;
-NET "btn_right" LOC = P121;
+NET "btn_right" LOC = P111;
 NET "btn_right" IOSTANDARD = LVTTL;
 NET "btn_right" PULLUP;
 
@@ -129,7 +129,7 @@ NET "green[0]" IOSTANDARD = LVTTL;
 NET "green[1]" LOC = P100;
 NET "green[1]" IOSTANDARD = LVTTL;
 
-NET "speaker" LOC = P116;
+NET "speaker" LOC = P126;
 NET "speaker" IOSTANDARD = LVTTL;
 
 NET "sevenseg1[0]" LOC = P57;
@@ -165,6 +165,14 @@ NET "sevenseg2[6]" LOC = P138;
 NET "sevenseg2[6]" IOSTANDARD = LVTTL;
 NET "sevenseg2[7]" LOC = P114;
 NET "sevenseg2[7]" IOSTANDARD = LVTTL;
+
+
+
+
+
+NET "test1" LOC = P121 | IOSTANDARD = LVTTL | PULLUP;
+
+
 
 
 

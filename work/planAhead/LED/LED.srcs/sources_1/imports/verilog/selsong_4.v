@@ -7,11 +7,10 @@
 module selsong_4 (
     input clk,
     input rst,
-    input btn_left,
-    input btn_right,
-    input btn_up,
     input btn_down,
     input btn_ok,
+    input keys1,
+    input keys2,
     output reg [2:0] yellowled,
     output reg [1:0] greenled
   );
@@ -46,20 +45,6 @@ module selsong_4 (
     .in(M_button_cond2_in),
     .out(M_button_cond2_out)
   );
-  wire [1-1:0] M_edge_detector3_out;
-  reg [1-1:0] M_edge_detector3_in;
-  edge_detector_8 edge_detector3 (
-    .clk(clk),
-    .in(M_edge_detector3_in),
-    .out(M_edge_detector3_out)
-  );
-  wire [1-1:0] M_button_cond3_out;
-  reg [1-1:0] M_button_cond3_in;
-  button_conditioner_9 button_cond3 (
-    .clk(clk),
-    .in(M_button_cond3_in),
-    .out(M_button_cond3_out)
-  );
   wire [1-1:0] M_edge_detector4_out;
   reg [1-1:0] M_edge_detector4_in;
   edge_detector_8 edge_detector4 (
@@ -88,26 +73,23 @@ module selsong_4 (
     .in(M_button_cond5_in),
     .out(M_button_cond5_out)
   );
-  localparam SONG1_yellow_state = 2'd0;
-  localparam SONG2_yellow_state = 2'd1;
-  localparam SONG3_yellow_state = 2'd2;
+  localparam SONG1_yellow_state = 1'd0;
+  localparam SONG2_yellow_state = 1'd1;
   
-  reg [1:0] M_yellow_state_d, M_yellow_state_q = SONG2_yellow_state;
+  reg M_yellow_state_d, M_yellow_state_q = SONG2_yellow_state;
   localparam SPEED1_green_state = 1'd0;
   localparam SPEED2_green_state = 1'd1;
   
   reg M_green_state_d, M_green_state_q = SPEED1_green_state;
   
   always @* begin
-    M_green_state_d = M_green_state_q;
     M_yellow_state_d = M_yellow_state_q;
+    M_green_state_d = M_green_state_q;
     
-    M_button_cond1_in = btn_left;
+    M_button_cond1_in = keys1;
     M_edge_detector1_in = M_button_cond1_out;
-    M_button_cond2_in = btn_right;
+    M_button_cond2_in = keys2;
     M_edge_detector2_in = M_button_cond2_out;
-    M_button_cond3_in = btn_up;
-    M_edge_detector3_in = M_button_cond3_out;
     M_button_cond4_in = btn_down;
     M_edge_detector4_in = M_button_cond4_out;
     M_button_cond5_in = btn_ok;
@@ -119,26 +101,11 @@ module selsong_4 (
         if (M_edge_detector2_out) begin
           M_yellow_state_d = SONG2_yellow_state;
         end
-        if (M_edge_detector3_out) begin
-          M_yellow_state_d = SONG3_yellow_state;
-        end
       end
       SONG2_yellow_state: begin
         yellowled[0+2-:3] = 3'h2;
         if (M_edge_detector1_out) begin
           M_yellow_state_d = SONG1_yellow_state;
-        end
-        if (M_edge_detector3_out) begin
-          M_yellow_state_d = SONG3_yellow_state;
-        end
-      end
-      SONG3_yellow_state: begin
-        yellowled[0+2-:3] = 3'h1;
-        if (M_edge_detector1_out) begin
-          M_yellow_state_d = SONG1_yellow_state;
-        end
-        if (M_edge_detector2_out) begin
-          M_yellow_state_d = SONG2_yellow_state;
         end
       end
       default: begin

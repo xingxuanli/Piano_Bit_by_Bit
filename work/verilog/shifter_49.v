@@ -4,10 +4,10 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module boolean_50 (
+module shifter_49 (
     input [7:0] a,
     input [7:0] b,
-    input [3:0] alufn,
+    input [1:0] alufn,
     output reg [7:0] out
   );
   
@@ -16,32 +16,17 @@ module boolean_50 (
   always @* begin
     
     case (alufn)
-      4'h1: begin
-        out = ~(a | b);
+      2'h0: begin
+        out = a << b;
       end
-      4'h6: begin
-        out = a ^ b;
+      2'h1: begin
+        out = a >> b;
       end
-      4'h7: begin
-        out = ~(a & b);
-      end
-      4'h8: begin
-        out = a & b;
-      end
-      4'h9: begin
-        out = ~(a ^ b);
-      end
-      4'ha: begin
-        out = a;
-      end
-      4'hc: begin
-        out = b;
-      end
-      4'he: begin
-        out = a | b;
+      2'h3: begin
+        out = $signed(a) >>> b;
       end
       default: begin
-        out = 8'h00;
+        out = 1'h0;
       end
     endcase
   end

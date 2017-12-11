@@ -4,7 +4,7 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module divide_by12_47 (
+module divide_by12_45 (
     input clk,
     input rst,
     input [5:0] numerator,

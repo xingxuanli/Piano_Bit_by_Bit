@@ -19,7 +19,7 @@ module alu_25 (
   wire [1-1:0] M_aluadder_z;
   wire [1-1:0] M_aluadder_v;
   wire [1-1:0] M_aluadder_n;
-  adder_48 aluadder (
+  adder_46 aluadder (
     .a(a),
     .b(b),
     .alufn(alufn[0+0-:1]),
@@ -29,28 +29,28 @@ module alu_25 (
     .n(M_aluadder_n)
   );
   wire [8-1:0] M_alucomparator_op;
-  comparator_49 alucomparator (
+  comparator_47 alucomparator (
     .a(a),
     .b(b),
     .alufn(alufn[1+1-:2]),
     .op(M_alucomparator_op)
   );
   wire [8-1:0] M_aluboolean_out;
-  boolean_50 aluboolean (
+  boolean_48 aluboolean (
     .a(a),
     .b(b),
     .alufn(alufn[0+3-:4]),
     .out(M_aluboolean_out)
   );
   wire [8-1:0] M_alushifter_out;
-  shifter_51 alushifter (
+  shifter_49 alushifter (
     .a(a),
     .b(b),
     .alufn(alufn[0+1-:2]),
     .out(M_alushifter_out)
   );
   wire [8-1:0] M_alumultiply_out;
-  multiply_52 alumultiply (
+  multiply_50 alumultiply (
     .a(a),
     .b(b),
     .alufn(alufn[0+1-:2]),

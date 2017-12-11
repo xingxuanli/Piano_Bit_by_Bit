@@ -1,11 +1,10 @@
 module selsong (
     input clk,  // clock
     input rst,  // reset
-    input btn_left,
-    input btn_right,
-    input btn_up,
     input btn_down,
     input btn_ok,
+    input keys1,
+    input keys2,
     output yellowled[3],
     output greenled[2]
   ) {
@@ -17,9 +16,6 @@ module selsong (
     edge_detector edge_detector2(#RISE(1), #FALL(0));
     button_conditioner button_cond2;
     
-    edge_detector edge_detector3(#RISE(1), #FALL(0));
-    button_conditioner button_cond3;
-    
     edge_detector edge_detector4(#RISE(1), #FALL(0));
     button_conditioner button_cond4;
     
@@ -27,7 +23,7 @@ module selsong (
     button_conditioner button_cond5;
     
     .rst(rst) {
-      fsm yellow_state(#INIT(SONG2)) = {SONG1, SONG2, SONG3};
+      fsm yellow_state(#INIT(SONG2)) = {SONG1, SONG2};
       fsm green_state(#INIT(SPEED1)) = {SPEED1, SPEED2};
       }
     
@@ -38,14 +34,11 @@ module selsong (
 
   always {
   
-    button_cond1.in = btn_left;
+    button_cond1.in = keys1;
     edge_detector1.in = button_cond1.out;
     
-    button_cond2.in = btn_right;
+    button_cond2.in = keys2;
     edge_detector2.in = button_cond2.out;
-    
-    button_cond3.in = btn_up;
-    edge_detector3.in = button_cond3.out;
     
     button_cond4.in = btn_down;
     edge_detector4.in = button_cond4.out;
@@ -59,25 +52,13 @@ module selsong (
          if (edge_detector2.out) {
            yellow_state.d = yellow_state.SONG2;
           }
-         if (edge_detector3.out) {
-           yellow_state.d = yellow_state.SONG3;
-          }
+        
       yellow_state.SONG2:
          yellowled[2:0] = b010;
          if (edge_detector1.out) {
            yellow_state.d = yellow_state.SONG1;
           }
-         if (edge_detector3.out) {
-           yellow_state.d = yellow_state.SONG3;
-          }
-      yellow_state.SONG3:
-         yellowled[2:0] = b001;
-         if (edge_detector1.out) {
-           yellow_state.d = yellow_state.SONG1;
-          }
-         if (edge_detector2.out) {
-           yellow_state.d = yellow_state.SONG2;
-          }
+      
       default:
           yellowled = b001;
       }

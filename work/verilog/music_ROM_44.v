@@ -4,7 +4,7 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module music_ROM_46 (
+module music_ROM_44 (
     input clk,
     input [24:0] address,
     input [1:0] music_num,

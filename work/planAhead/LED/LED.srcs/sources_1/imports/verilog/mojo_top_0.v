@@ -52,6 +52,10 @@ module mojo_top_0 (
   
   reg [5:0] opcode;
   
+  reg M_key1_store_d, M_key1_store_q = 1'h0;
+  
+  reg M_key2_store_d, M_key2_store_q = 1'h0;
+  
   wire [1376-1:0] M_mysong_song11;
   wire [1376-1:0] M_mysong_song12;
   wire [1376-1:0] M_mysong_song21;
@@ -92,11 +96,10 @@ module mojo_top_0 (
   selsong_4 songandspeed (
     .clk(clk),
     .rst(rst),
-    .btn_left(btn_left),
-    .btn_right(btn_right),
-    .btn_up(btn_up),
     .btn_down(btn_down),
     .btn_ok(btn_ok),
+    .keys1(M_key1_store_q),
+    .keys2(M_key2_store_q),
     .yellowled(M_songandspeed_yellowled),
     .greenled(M_songandspeed_greenled)
   );
@@ -240,10 +243,11 @@ module mojo_top_0 (
     .in(M_cond_center_in),
     .out(M_cond_center_out)
   );
-  localparam SONG_SELECTION_global_state = 1'd0;
-  localparam PLAY_global_state = 1'd1;
+  localparam SONG_SELECTION_global_state = 2'd0;
+  localparam PLAY_global_state = 2'd1;
+  localparam END_global_state = 2'd2;
   
-  reg M_global_state_d, M_global_state_q = SONG_SELECTION_global_state;
+  reg [1:0] M_global_state_d, M_global_state_q = SONG_SELECTION_global_state;
   wire [1-1:0] M_mymusic_speaker;
   music_24 mymusic (
     .clk(clk),
@@ -264,9 +268,11 @@ module mojo_top_0 (
   
   always @* begin
     M_global_state_d = M_global_state_q;
-    M_score_d = M_score_q;
-    M_gcounter_d = M_gcounter_q;
     M_mycounter_d = M_mycounter_q;
+    M_gcounter_d = M_gcounter_q;
+    M_score_d = M_score_q;
+    M_key2_store_d = M_key2_store_q;
+    M_key1_store_d = M_key1_store_q;
     
     speaker = M_mymusic_speaker;
     M_cond0_in = keys[0+0-:1];
@@ -314,6 +320,14 @@ module mojo_top_0 (
     
     case (M_global_state_q)
       SONG_SELECTION_global_state: begin
+        if (M_detector0_out) begin
+          M_key1_store_d = 1'h1;
+          M_key2_store_d = 1'h0;
+        end
+        if (M_detector1_out) begin
+          M_key1_store_d = 1'h0;
+          M_key2_store_d = 1'h1;
+        end
         M_score_d = 1'h0;
         M_mycounter_d = 1'h0;
         M_gcounter_d = 1'h0;
@@ -334,12 +348,12 @@ module mojo_top_0 (
         end
       end
       PLAY_global_state: begin
-        if (M_songandspeed_greenled[0+1-:2] == 2'h1) begin
+        if (M_songandspeed_greenled[0+1-:2] == 2'h2) begin
           if (M_gcounter_q == 1'h0) begin
             M_mycounter_d = M_mycounter_q + 1'h1;
           end
         end else begin
-          if (M_songandspeed_greenled[0+1-:2] == 2'h2) begin
+          if (M_songandspeed_greenled[0+1-:2] == 2'h1) begin
             if (M_gcounter_q[23+0-:1] == 1'h1) begin
               M_mycounter_d = M_mycounter_q + 1'h1;
               M_gcounter_d = 1'h0;
@@ -374,7 +388,7 @@ module mojo_top_0 (
         op_b = cr[0+0+7-:8];
         opcode = 6'h33;
         if (cr[0+7-:8] == 8'haa) begin
-          M_global_state_d = SONG_SELECTION_global_state;
+          M_global_state_d = END_global_state;
         end
         if (M_detector0_out) begin
           if (cr[0+7-:8] == 8'h60 || cr[8+7-:8] == 8'h60) begin
@@ -449,6 +463,24 @@ module mojo_top_0 (
           end
         end
         if (M_detector_center_out) begin
+          M_global_state_d = END_global_state;
+        end
+      end
+      END_global_state: begin
+        M_score_d = M_score_q;
+        for (j = 1'h0; j < 4'h8; j = j + 1) begin
+          cr[(j)*8+7-:8] = 1'h0;
+          cr2[(j)*8+7-:8] = 1'h0;
+        end
+        M_display_cr = cr;
+        r = M_display_r;
+        c = M_display_c;
+        M_display2_cr = cr2;
+        r2 = M_display2_r;
+        c2 = M_display2_c;
+        yellow[0+2-:3] = 3'h0;
+        green[0+1-:2] = 2'h0;
+        if (M_detector6_out) begin
           M_global_state_d = SONG_SELECTION_global_state;
         end
       end
@@ -471,6 +503,15 @@ module mojo_top_0 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
+      M_score_q <= 1'h0;
+    end else begin
+      M_score_q <= M_score_d;
+    end
+  end
+  
+  
+  always @(posedge clk) begin
+    if (rst == 1'b1) begin
       M_gcounter_q <= 1'h0;
     end else begin
       M_gcounter_q <= M_gcounter_d;
@@ -480,9 +521,18 @@ module mojo_top_0 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_mycounter_q <= 1'h0;
+      M_key2_store_q <= 1'h0;
     end else begin
-      M_mycounter_q <= M_mycounter_d;
+      M_key2_store_q <= M_key2_store_d;
+    end
+  end
+  
+  
+  always @(posedge clk) begin
+    if (rst == 1'b1) begin
+      M_key1_store_q <= 1'h0;
+    end else begin
+      M_key1_store_q <= M_key1_store_d;
     end
   end
   
@@ -498,9 +548,9 @@ module mojo_top_0 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_score_q <= 1'h0;
+      M_mycounter_q <= 1'h0;
     end else begin
-      M_score_q <= M_score_d;
+      M_mycounter_q <= M_mycounter_d;
     end
   end
   

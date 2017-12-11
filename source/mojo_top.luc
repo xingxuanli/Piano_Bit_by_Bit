@@ -40,11 +40,13 @@ module mojo_top (
   sig op_a[8];
   sig op_b[8];
   sig opcode[6];
+  dff key1_store(.clk(clk), .rst(rst));
+  dff key2_store(.clk(clk), .rst(rst));
   
   songselection mysong(.clk(clk), .rst(rst));//get the song from the ROM
   display display(.clk(clk), .rst(rst));    //display matrix 1
   display display2(.clk(clk), .rst(rst));    //dsiplay matrix 2
-  selsong songandspeed(.clk(clk), .rst(rst), .btn_left(btn_left), .btn_right(btn_right), .btn_up(btn_up), .btn_down(btn_down), .btn_ok(btn_ok));
+  selsong songandspeed(.clk(clk), .rst(rst), .btn_down(btn_down), .btn_ok(btn_ok), .keys1(key1_store.q), .keys2(key2_store.q));
   seven_seg my_seven_seg_1(.char(score_dig1[3:0]));
   seven_seg my_seven_seg_2(.char(score_dig2[3:0]));
 
@@ -54,6 +56,7 @@ module mojo_top (
   dff gcounter[24](.clk(clk), .rst(rst));
   dff mycounter[25] (.clk(clk),.rst(rst));
   dff score[8](.clk(clk), .rst(rst));
+
   
   .clk(clk) {
     // The reset conditioner is used to synchronize the reset signal to the FPGA
@@ -86,7 +89,7 @@ module mojo_top (
 
                             
     .rst(rst) {
-      fsm global_state(#INIT(SONG_SELECTION)) = {SONG_SELECTION, PLAY};
+      fsm global_state(#INIT(SONG_SELECTION)) = {SONG_SELECTION, PLAY, END};
       music mymusic(.music_num(music_num[1:0]), .mycounter(mycounter.q[24:0]));
       alu myalu(.a(op_a[7:0]), .b(op_b[7:0]), .alufn(opcode[5:0]));
       }
@@ -151,6 +154,15 @@ module mojo_top (
     
     case (global_state.q) {
       global_state.SONG_SELECTION:
+      if (detector0.out){
+        key1_store.d = 1;
+        key2_store.d = 0;
+          }
+      if (detector1.out){
+        key1_store.d = 0;
+        key2_store.d = 1;
+          }
+
           score.d =0;
           mycounter.d =0;		
 	        gcounter.d =0;
@@ -178,12 +190,12 @@ module mojo_top (
       
 //select the global counter delay        
         
-        if(songandspeed.greenled[1:0] ==b01) {
+        if(songandspeed.greenled[1:0] ==b10) {
         
           if(gcounter.q ==0) {
             mycounter.d =mycounter.q +1;
             }
-          } else if(songandspeed.greenled[1:0] ==b10) {
+          } else if(songandspeed.greenled[1:0] ==b01) {
         
           if(gcounter.q[23] ==1) {
           
@@ -232,7 +244,7 @@ module mojo_top (
         op_b = cr[0][7:0];
         opcode = b110011;
         if(cr[0] ==b10101010) {
-          global_state.d =global_state.SONG_SELECTION;
+          global_state.d =global_state.END;
           }
         
         if(detector0.out) {     
@@ -292,9 +304,29 @@ module mojo_top (
             score.d =score.q - 1;}}}
         
         if (detector_center.out) {
-          global_state.d = global_state.SONG_SELECTION;
+          global_state.d = global_state.END;
           }     
         
+      global_state.END:
+        score.d = score.q;
+        for(j =0; j <8; j ++) {
+    
+            cr[j] =0;
+            cr2[j] =0;
+            
+            }
+            display.cr =cr;
+            r =display.r;
+            c =display.c;    
+    
+            display2.cr =cr2;
+            r2 =display2.r;
+            c2 =display2.c;
+       yellow[2:0] =b000;
+       green[1:0] =b00; 
+        if (detector6.out){
+          global_state.d = global_state.SONG_SELECTION;
+          }
 
 //default state        
       default:

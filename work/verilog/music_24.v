@@ -25,7 +25,7 @@ module music_24 (
   reg [7:0] fullnote;
   
   wire [8-1:0] M_get_fullnote_note;
-  music_ROM_46 get_fullnote (
+  music_ROM_44 get_fullnote (
     .clk(clk),
     .address(mycounter[0+24-:25]),
     .music_num(music_num[0+1-:2]),
@@ -42,7 +42,7 @@ module music_24 (
   
   wire [3-1:0] M_get_octave_and_note_quotient;
   wire [4-1:0] M_get_octave_and_note_remainder;
-  divide_by12_47 get_octave_and_note (
+  divide_by12_45 get_octave_and_note (
     .clk(clk),
     .rst(rst),
     .numerator(M_get_fullnote_note[0+5-:6]),
@@ -141,18 +141,18 @@ module music_24 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_tone_q <= 1'h0;
+      M_speaker_dff_q <= 1'h0;
     end else begin
-      M_tone_q <= M_tone_d;
+      M_speaker_dff_q <= M_speaker_dff_d;
     end
   end
   
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_speaker_dff_q <= 1'h0;
+      M_counter_note_q <= 1'h0;
     end else begin
-      M_speaker_dff_q <= M_speaker_dff_d;
+      M_counter_note_q <= M_counter_note_d;
     end
   end
   
@@ -168,9 +168,9 @@ module music_24 (
   
   always @(posedge clk) begin
     if (rst == 1'b1) begin
-      M_counter_note_q <= 1'h0;
+      M_tone_q <= 1'h0;
     end else begin
-      M_counter_note_q <= M_counter_note_d;
+      M_tone_q <= M_tone_d;
     end
   end
   
